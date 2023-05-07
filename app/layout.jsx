@@ -10,13 +10,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Provider>
-          <div className="main gradient">
-            <div className="" />
+          <div className="main">
+            <div className="gradient" />
           </div>
-          <main className="app">
+          <div className="app">
             <Nav />
-            {children}
-          </main>
+            <main className="w-full">{children}</main>
+          </div>
         </Provider>
       </body>
     </html>
