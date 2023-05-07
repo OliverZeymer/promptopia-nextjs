@@ -50,7 +50,14 @@ export default function Nav() {
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex">
-            <Image onClick={() => setToggleDropdown((prevState) => !prevState)} src={session?.user.image} width={37} height={37} alt="Profile" className="object-contain rounded-full" />
+            <Image
+              onClick={() => setToggleDropdown((prevState) => !prevState)}
+              src={session?.user.image}
+              width={37}
+              height={37}
+              alt="Profile"
+              className="object-contain rounded-full cursor-pointer"
+            />
             {toggleDropdown && (
               <div className="dropdown">
                 <Link href="/profile" className="dropdown_link" onClick={() => setToggleDropdown(false)}>
