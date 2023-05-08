@@ -26,12 +26,30 @@ export default function Feed() {
     }
     fetchPosts();
   }, []);
+  const filteredPosts = posts.filter((post) => {
+    return (
+      post.creator.username.toLowerCase().includes(searchValue.toLowerCase()) ||
+      post.creator.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+      post.tag.includes(searchValue.toLowerCase()) ||
+      post.prompt.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  });
+
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
-        <input type="text" placeholder="Search for a tag or user" value={searchValue} required onChange={handleSearchChange} className="search_input peer" />
+        <div className="relative w-full">
+          <img src="/assets/icons/search.svg" alt="Search Icon" className="absolute left-5  top-1/2 -translate-y-1/2 w-4 h-4" />
+          <input type="text" placeholder="Search for a tag or user" value={searchValue} onChange={handleSearchChange} className="search_input peer" />
+        </div>
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+
+      <PromptCardList
+        data={searchValue !== "" ? filteredPosts : posts}
+        handleTagClick={(tag) => {
+          setSearchValue(tag);
+        }}
+      />
     </section>
   );
 }
