@@ -3,22 +3,38 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 export default function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
   const [copied, setCopied] = useState("");
+  const router = useRouter();
   const { data: session } = useSession();
   const pathName = usePathname();
   function handleCopy() {
     navigator.clipboard.writeText(post.prompt);
     setCopied(post.prompt);
+    toast.success("Prompt copied to clipboard!", {
+      position: "top-center",
+      autoClose: 1300,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     setTimeout(() => {
       setCopied("");
-    }, 1000);
+    }, 2000);
   }
   return (
     <div className="prompt_card overflow-hidden">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
-          <Image src={post.creator.image} alt="user image" width={40} height={40} className="rounded-full object-contain" />
+        <div
+          className="flex-1 flex justify-start items-center cursor-pointer gap-3"
+          onClick={() => {
+            router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+          }}>
+          <Image src={post.creator.image} alt={post.creator.username} width={40} height={40} className="rounded-full object-contain" />
           <div className="flex flex-col overflow-hidden">
             <h3 className="font-satoshi font-semibold text-gray-900 truncate">{post.creator.username}</h3>
             <p className="font-inter text-sm text-gray-500 truncate">{post.creator.email}</p>
@@ -33,7 +49,7 @@ export default function PromptCard({ post, handleTagClick, handleEdit, handleDel
         onClick={() => {
           handleTagClick && handleTagClick(post.tag);
         }}
-        className="font-inter text-sm blue_gradient cursor-pointer">
+        className="font-inter text-sm colorful_gradient cursor-pointer">
         {post.tag}
       </p>
       {session?.user.id === post.creator._id && pathName === "/profile" && (

@@ -94,12 +94,16 @@
   @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
 }
 
+.colorful_gradient {
+  @apply bg-gradient-to-r from-pink-500 via-yellow-500 to-red-500 bg-clip-text text-transparent;
+}
+
 .desc {
   @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
 }
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-12 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
@@ -130,7 +134,7 @@
 
 /* Nav Component */
 .logo_text {
-  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+  @apply max-sm:hidden font-satoshi font-bold orange_gradient text-lg lg:text-xl;
 }
 
 .dropdown {
@@ -160,4 +164,12 @@
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+.Toastify__progress-bar {
+  @apply !rounded-full !bg-gradient-to-r !from-green-400 !to-green-500;
+}
+
+.Toastify__toast {
+  @apply !rounded-full !border !border-black !bg-black !py-1.5 !text-white !font-inter;
 }

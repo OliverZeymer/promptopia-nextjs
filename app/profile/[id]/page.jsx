@@ -1,21 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Profile from "@components/Profile";
-export default function MyProfile() {
+export default function UserProfile({ params }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const id = params?.id;
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     async function fetchPosts() {
-      const response = await fetch(`/api/users/${session.user.id}/posts`);
+      const response = await fetch(`/api/users/${id}/posts`);
       const data = await response.json();
       setPosts(data);
     }
 
-    if (session?.user.id) fetchPosts();
-  }, [session?.user.id]);
+    if (id) fetchPosts();
+  }, [id]);
   function handleEdit(post) {
     router.push(`/update-prompt?id=${post._id}`);
   }
@@ -34,5 +35,5 @@ export default function MyProfile() {
     }
   }
 
-  return <Profile name="My" desc="Welcome to your personalized profile page" data={posts} handleEdit={handleEdit} handleDelete={handleDelete} />;
+  return <Profile name={`${name}'s`} desc={`Welcome to ${name}'s profile! Check out their prompts below`} data={posts} handleEdit={handleEdit} handleDelete={handleDelete} />;
 }
