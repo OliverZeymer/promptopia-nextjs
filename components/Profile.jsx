@@ -1,4 +1,3 @@
-import Image from "next/image";
 import PromptCard from "./PromptCard";
 export default function Profile({ name, desc, data, handleEdit, handleDelete }) {
   return (
@@ -10,8 +9,8 @@ export default function Profile({ name, desc, data, handleEdit, handleDelete }) 
         </h1>
       </article>
       <div className="mt-16 prompt_layout">
-        {data.map((post) => (
-          <PromptCard key={post._id} post={post} handleEdit={() => handleEdit && handleEdit(post)} handleDelete={() => handleDelete && handleDelete(post)} />
+        {data.map((post, index) => (
+          <PromptCard key={post._id} index={index} post={post} handleEdit={() => handleEdit && handleEdit(post)} handleDelete={() => handleDelete && handleDelete(post)} />
         ))}
       </div>
     </section>

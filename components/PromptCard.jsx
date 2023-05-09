@@ -4,14 +4,15 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-export default function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
-  const [copied, setCopied] = useState("");
+import { motion } from "framer-motion";
+export default function PromptCard({ index, post, handleTagClick, handleEdit, handleDelete }) {
+  const [copiedImage, setCopiedImage] = useState("/assets/icons/copy.svg");
   const router = useRouter();
   const { data: session } = useSession();
   const pathName = usePathname();
   function handleCopy() {
     navigator.clipboard.writeText(post.prompt);
-    setCopied(post.prompt);
+    setCopiedImage("/assets/icons/tick.svg");
     toast.success("Prompt copied to clipboard!", {
       position: "top-center",
       autoClose: 1300,
@@ -20,14 +21,14 @@ export default function PromptCard({ post, handleTagClick, handleEdit, handleDel
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "dark",
     });
     setTimeout(() => {
-      setCopied("");
+      setCopiedImage("/assets/icons/copy.svg");
     }, 2000);
   }
   return (
-    <div className="prompt_card overflow-hidden">
+    <motion.div layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.2 }} className="prompt_card overflow-hidden">
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center cursor-pointer gap-3"
@@ -41,7 +42,16 @@ export default function PromptCard({ post, handleTagClick, handleEdit, handleDel
           </div>
         </div>
         <div onClick={handleCopy} className="copy_btn min-w-[20px]">
-          <Image src={copied === post.prompt ? "/assets/icons/tick.svg" : "/assets/icons/copy.svg"} alt="copy icon" width={20} height={20} />
+          <motion.div
+            key={copiedImage}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}>
+            <Image src={copiedImage} alt="copy icon" width={20} height={20} />
+          </motion.div>
         </div>
       </div>
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
@@ -62,6 +72,6 @@ export default function PromptCard({ post, handleTagClick, handleEdit, handleDel
           </p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

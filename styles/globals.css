@@ -81,7 +81,9 @@
 .head_text {
   @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
-
+.second_head_text {
+  @apply text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
+}
 .orange_gradient {
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
@@ -115,12 +117,16 @@
 }
 
 .prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+  @apply py-8 flex w-full mx-auto justify-center xl:justify-start flex-wrap gap-6;
 }
 
+/* PromptCard Component */
+.prompt_card {
+  @apply break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+}
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mt-16 mx-auto w-full flex justify-center items-center flex-col gap-2;
 }
 
 /* Form Component */
@@ -145,11 +151,6 @@
   @apply rounded-lg w-full border border-gray-900 bg-gray-900 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
 }
 
-/* PromptCard Component */
-.prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
-}
-
 .flex-center {
   @apply flex justify-center items-center;
 }
@@ -167,9 +168,9 @@
 }
 
 .Toastify__progress-bar {
-  @apply !rounded-full !bg-gradient-to-r !from-green-400 !to-green-500;
+  @apply !rounded-md !bg-gradient-to-r !from-green-400 !to-green-700;
 }
 
 .Toastify__toast {
-  @apply !rounded-full !border !border-black !bg-black !py-1.5 !text-white !font-inter;
+  @apply !rounded-md !border !border-black !bg-black !py-1.5 !text-white !font-inter;
 }
